@@ -5,6 +5,7 @@ import Media from '@server/entity/Media';
 import { User } from '@server/entity/User';
 import type { WatchlistItem } from '@server/interfaces/api/discoverInterfaces';
 import logger from '@server/logger';
+import { IsNumber, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -34,6 +35,7 @@ export class Watchlist implements WatchlistItem {
   public ratingKey = '';
 
   @Column({ type: 'varchar' })
+  @IsString()
   public mediaType: MediaType;
 
   @Column({ type: 'varchar' })
@@ -41,6 +43,7 @@ export class Watchlist implements WatchlistItem {
 
   @Column()
   @Index()
+  @IsNumber()
   public tmdbId: number;
 
   @ManyToOne(() => User, (user) => user.watchlists, {
